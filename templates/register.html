@@ -1,0 +1,100 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Register Page{%endblock%}
+
+{%block css%}
+<!--===============================================================================================-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png'%}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/themify/themify-icons.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/lightbox2/css/lightbox.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+<!--===============================================================================================-->
+{%endblock%}
+
+{% block content %}
+	<!-- Title Page -->
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({%static 'images/bg-title-page-03.jpg'%});">
+		<h2 class="tit6 t-center">
+			Register Page
+		</h2>
+	</section>
+    	<div class="container">
+			{% if messages %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				{%for message in messages%}
+				  <strong>
+					  {{ message }}
+				  </strong>
+				{%endfor%}
+			</div>
+			{%endif%}
+			<form method="post">
+				 {% csrf_token %}
+				 <label for="Lastname"> Lastname </label>
+				 <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Enter You Lastname"><br>
+				 <label for="Firstname">Firstname</label>
+				 <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Enter You Firstname"><br>
+				 <button type="submit"> Email </button>
+				 <input class="form-control" type="text" name="email" id="email" placeholder="Enter You Email"><br>
+				 <label for="Username"> Username </label>
+				 <input class="form-control" type="text" name="username" id="username" placeholder="Enter You Username"><br>
+				 <label for="password1">Password</label>
+				 <input class="form-control" type="password" name="password1" id="password1" placeholder="Enter You Password"><br>
+				 <label for="password2"> Confirm Password</label>
+				 <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password"><br>
+				 <button type="submit"> Login </button>
+			</form>
+		</div>
+{%endblock%}
+
+{% block js %}
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/animsition/js/animsition.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/popper.js'%}"></script>
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/select2/select2.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/daterangepicker/moment.min.js'%}"></script>
+	<script type="text/javascript" src="{% static 'vendor/daterangepicker/daterangepicker.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/slick/slick.min.js'%}"></script>
+	<script type="text/javascript" src="{% static 'js/slick-custom.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/parallax100/parallax100.js'%}"></script>
+	<script type="text/javascript">
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/countdowntime/countdowntime.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/lightbox2/js/lightbox.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js'%}"></script>
+{%endblock%}

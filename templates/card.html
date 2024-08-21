@@ -1,0 +1,222 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Card{%endblock%}
+
+{%block css%}
+<!--===============================================================================================-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png'%}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/themify/themify-icons.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/lightbox2/css/lightbox.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+<!--===============================================================================================-->
+{%endblock%}
+
+{% block content %}
+	<!-- Title Page -->
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({%static 'images/bg-title-page-03.jpg'%});">
+		<h2 class="tit6 t-center">
+			Card
+		</h2>
+	</section>
+<div class="container">
+		<table class="table">
+		 	<thead>
+		 		<tr>
+					<th scope="col">Product</th>
+					<th scope="col">Price</th>
+					<th scope="col"> Quantity </th>
+					<th scope="col">Total    </th>
+		 		</tr>
+		 	</thead>
+			<tbody>
+			{%for product in shopping_card_products%}
+				<tr>
+					<td>
+						<div class="d-flex">
+							<span>{{product.index}}</span>
+							<img src="" alt="">
+						</div>
+							<p>{{product.product.name}}</p>
+					</td>
+					<td>
+							<h7>{{product.product.price}}</h7>
+					</td>
+					<td>
+						<div class="input-group mb-3" style="max-width: 120px">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-primary js-btn-minus" type="button" onclick="decrement_count({{ product.id}},{{ product.product.price }})"> &minus;</button>
+							</div>
+							<input id="product_count_{{product.id}}" oninput="change_count({{product.id}}, {{product.product.price}})" type="text" class="form-control text-center" value="{{product.count}}" placeholder="">
+							<div class="input-group-append">
+								<button class="btn btn-outline-primary js-btn-plus" type="button" onclick="increment_count({{product.id}}, {{product.product.price}})">&plus;</button>
+
+							</div>
+						</div>
+					</td>
+					<td>
+						<form method="post">
+						{% csrf_token%}
+							<input type="hidden" name="shopping_card_id" value="{{product.id}}">
+							<button type="submit" class="btn btn-primary btn-sm">X</button>
+						</form>
+					</td>
+				</tr>
+			{%endfor%}
+			</tbody>
+	 	</table>
+	</div>
+
+
+
+{%endblock%}
+
+{% block js %}
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/animsition/js/animsition.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/popper.js'%}"></script>
+	<script type="text/javascript" src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/select2/select2.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/daterangepicker/moment.min.js'%}"></script>
+	<script type="text/javascript" src="{% static 'vendor/daterangepicker/daterangepicker.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/slick/slick.min.js'%}"></script>
+	<script type="text/javascript" src="{% static 'js/slick-custom.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/parallax100/parallax100.js'%}"></script>
+	<script type="text/javascript">
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/countdowntime/countdowntime.js'%}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'vendor/lightbox2/js/lightbox.min.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/main.js'%}"></script>
+<script>
+	function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function increment_count(productId, productPrice) {
+        let countInput = document.getElementById(`product_count_${productId}`);
+        let currentCount = parseInt(countInput.value);
+        countInput.value = currentCount + 1;
+        updateTotalPrice(productId, productPrice, countInput.value);
+
+        fetch('/increment/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ id: productId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                console.error('Error:', data.error);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    function decrement_count(productId, productPrice) {
+        let countInput = document.getElementById(`product_count_${productId}`);
+        let currentCount = parseInt(countInput.value);
+        if (currentCount > 0) {
+            countInput.value = currentCount - 1;
+            updateTotalPrice(productId, productPrice, countInput.value);
+
+            fetch('/decrement/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ id: productId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    function change_count(productId, productPrice) {
+        let countInput = document.getElementById(`product_count_${productId}`);
+        let currentCount = parseInt(countInput.value);
+        if (!isNaN(currentCount) && currentCount >= 0) {
+            updateTotalPrice(productId, productPrice, currentCount);
+
+            fetch('/change/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ id: productId, product_count: currentCount })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }
+
+    function updateTotalPrice(productId, productPrice, count) {
+        // Update the total price logic here
+    }
+</script>
+
+{%endblock%}
